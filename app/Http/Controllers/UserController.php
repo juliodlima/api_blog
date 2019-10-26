@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
-use function GuzzleHttp\json_encode;
-
 class UserController extends Controller
 {
     /**
@@ -55,12 +53,18 @@ class UserController extends Controller
 
                 if (!$user) {
                     return response()->json("Erro no cadastro user - id: ".$value["id"], 400);
+                } else {
+
                 }
             } 
+            
+            $users = User::all();
+
+            if ($users) return response()->json("Registros cadastrados com sucesso!", 200);
+            else return response()->json("Erro ao processar cadastrados!", 400);
+            
         } else {
             return response()->json("Nao autorizado!", 400);
         }
-
-        return response()->json("Registros cadastrados com sucesso!", 200);
     }
 }

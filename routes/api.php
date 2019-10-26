@@ -13,14 +13,36 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 
 // users
-//Route::get("/user", "UserController@view");
-Route::post("/user/cadastro", "UserController@store");
+Route::prefix('user')->group(function () {
+    // retirar esta view
+    Route::get("/", "UserController@view");
+    Route::post("/cadastrar", "UserController@store");
+});
 
 // post
-Route::get("/post", "PostController@view");
-Route::post("/post/cadastro", "PostController@store");
+Route::prefix('post')->group(function () {
+    Route::get("/", "PostController@view");
+    Route::post("/cadastrar", "PostController@store");
+});
+
+// comment
+Route::prefix('comment')->group(function () {
+    Route::get("/", "CommentController@view");
+    Route::post("/cadastrar", "CommentController@store");
+});
+
+// album
+Route::prefix('album')->group(function () {
+    Route::get("/", "AlbumController@view");
+    Route::post("/cadastrar", "AlbumController@store");
+});
+
+// photo
+Route::prefix('photo')->group(function () {
+    Route::get("/", "PhotoController@view");
+    Route::post("/cadastrar", "PhotoController@store");
+});
+
+

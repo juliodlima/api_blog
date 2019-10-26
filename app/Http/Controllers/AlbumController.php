@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Album;
 use App\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
-class PostController extends Controller
+class AlbumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class PostController extends Controller
      */
     public function view()
     {
-        $posts = Post::all();
+        $albums = Album::all();
 
-        return response()->json($posts, 200);
+        return response()->json($albums, 200);
     }
 
     /**
@@ -37,8 +37,7 @@ class PostController extends Controller
         foreach ($dados as $key => $value) {
 
             $validator = Validator::make($value, [
-                'title'  => 'required|unique:posts|max:255',
-                'body'   => 'required'
+                'title'  => 'required|unique:albums|max:255'
             ]);
 
             if ($validator->fails()) {
@@ -53,26 +52,26 @@ class PostController extends Controller
                 return response()->json("Usuario nao existente- id: ".$value["id"], 400);
             }
 
-            $post = Post::create($value);
+            $album = Album::create($value);
 
-            if (!$post) {
-                return response()->json("Erro no cadastro do post - id: ".$value["id"], 400);
+            if (!$album) {
+                return response()->json("Erro no cadastro do album - id: ".$value["id"], 400);
             }
         } 
 
-        $posts = Post::all();
+        $albums = Album::all();
 
-        if ($posts) return response()->json("Registros cadastrados com sucesso!", 200);
+        if ($albums) return response()->json("Registros cadastrados com sucesso!", 200);
         else return response()->json("Erro ao processar cadastrados!", 400);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Album  $album
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Album $album)
     {
         //
     }
