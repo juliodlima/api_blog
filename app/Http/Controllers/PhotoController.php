@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Photo;
-use App\Album;
+use App\Models\Photo;
+use App\Models\Album;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
@@ -65,16 +65,5 @@ class PhotoController extends Controller
 
         if ($photos) return response()->json("Registros cadastrados com sucesso!", 200);
         else return response()->json("Erro ao processar cadastrados!", 400);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Photo  $photo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Photo $photo)
-    {
-        //
     }
 }

@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 
 // users
 Route::prefix('user')->group(function () {
-    // retirar esta view
-    Route::get("/", "UserController@view");
     Route::post("/cadastrar", "UserController@store");
 });
 

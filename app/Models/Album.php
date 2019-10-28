@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +14,7 @@ class Album extends Model
     *
     * @var array
     */
-   protected $fillable = [
-       'title','userId'
-   ];
+    protected $fillable = [
+        'title','userId'
+    ];
 }

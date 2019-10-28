@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\Post;
+use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
@@ -65,16 +65,5 @@ class CommentController extends Controller
 
         if ($coments) return response()->json("Registros cadastrados com sucesso!", 200);
         else return response()->json("Erro ao processar cadastrados!", 400);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comment $comment)
-    {
-        //
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
+use App\Models\Address;
+use App\Models\Geo;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
@@ -29,15 +32,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // token
-        if ($request->header('http-x-api-key') == config('app.APIKEY')) {
-
+        // autenticação via token
+        if ($request->header('http-x-api-key') == config('app.key')) {
             $dados = $request->all();
 
             foreach ($dados as $key => $value) {
-                // corrigir
-                $value["address"] = "";
-                $value["company"] = "";
+
                 $validator = Validator::make($value, [
                     'name'  => 'required|min:6|max:255',
                     'email' => 'required|email|unique:users'
@@ -49,13 +49,23 @@ class UserController extends Controller
                     return response()->json($erros, 400);
                 } 
 
+                // cadastro geo
+                $geo = Geo::create($value["address"]["geo"]);
+                $value["address"]["geo"] = $geo->id;
+
+                // cadastro address
+                $address = Address::create($value["address"]);
+                $value["address"] = $address->id;
+
+                // cadastro company
+                $company = Company::create($value["company"]);
+                $value["company"] = $company->id;
+
                 $user = User::create($value);
 
                 if (!$user) {
                     return response()->json("Erro no cadastro user - id: ".$value["id"], 400);
-                } else {
-
-                }
+                } 
             } 
             
             $users = User::all();
@@ -64,7 +74,7 @@ class UserController extends Controller
             else return response()->json("Erro ao processar cadastrados!", 400);
             
         } else {
-            return response()->json("Nao autorizado!", 400);
+            return response()->json("Nao autorizado!", 401);
         }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Album;
-use App\User;
+use App\Models\Album;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
@@ -30,8 +30,6 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        // Usuario não autorizado
-
         $dados = $request->all();
 
         foreach ($dados as $key => $value) {
@@ -63,16 +61,5 @@ class AlbumController extends Controller
 
         if ($albums) return response()->json("Registros cadastrados com sucesso!", 200);
         else return response()->json("Erro ao processar cadastrados!", 400);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Album  $album
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Album $album)
-    {
-        //
     }
 }

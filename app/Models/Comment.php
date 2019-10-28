@@ -1,20 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Post extends Model
+
+class Comment extends Model
 {
     use Notifiable;
 
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'title', 'body','userId'
+        'name', 'email', 'body','postId'
     ];
 }
